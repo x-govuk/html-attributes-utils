@@ -118,6 +118,14 @@ module HTMLAttributesUtils
       value
     end
 
+    # Returns a list of HTML attributes where the value contain multiple
+    # elements separated by spaces. We use it to target values to split
+    # so the arrays can be cleanly merged.
+    #
+    # They are stored as nested arrays so when we're walking multiple
+    # levels on the deep merge the structure can be identified. This means
+    # the library works with the Rails-preferred format of
+    # `aria: { describedby: "xyz" }` rather than `aria-describdby: `xyz`
     def default_mergeable_attributes
       [
         %i(class),
