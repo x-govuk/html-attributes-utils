@@ -1,6 +1,9 @@
 require "debug"
 require "active_support"
 require "html_attributes_utils"
+require "simplecov"
+
+SimpleCov.start if ENV.fetch("SIMPLECOV") { "1" } == "1"
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

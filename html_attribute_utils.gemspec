@@ -20,9 +20,16 @@ Gem::Specification.new do |s|
     "rubygems_mfa_required" => "true",
   }
 
-  s.add_dependency("activesupport", ">= 6.1.4.4")
+  rails_version = ENV.fetch("RAILS_VERSION") { "6.1.4.4" }
+
+  if ENV.key?("RAILS_VERSION")
+    s.add_dependency("activesupport", "~> #{rails_version}")
+  else
+    s.add_dependency("activesupport", ">= #{rails_version}")
+  end
 
   s.add_development_dependency("debug")
   s.add_development_dependency("rspec", "~> 3.11.0")
   s.add_development_dependency("rubocop-govuk", "~> 4.3.0")
+  s.add_development_dependency("simplecov", "~> 0.20")
 end

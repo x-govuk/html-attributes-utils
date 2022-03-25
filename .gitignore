@@ -1,1 +1,4 @@
+.ruby-version
+coverage
 *.gem
+Gemfile.lock
