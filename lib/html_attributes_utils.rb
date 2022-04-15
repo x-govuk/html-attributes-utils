@@ -65,11 +65,9 @@ module HTMLAttributesUtils
       when Hash
         value.deep_tidy_html_attributes.presence
       when Array
-        value.reject(&:blank?).presence
-      when String
-        value.strip.presence
+        value.reject(&:blank?).map(&:to_s).map(&:strip).presence
       else
-        value
+        value.to_s.strip.presence
       end
     end
 

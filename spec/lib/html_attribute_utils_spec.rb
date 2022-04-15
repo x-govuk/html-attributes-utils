@@ -189,6 +189,25 @@ tidyable_example_groups = {
       expected: { a: "b", e: %w(f), h: { j: "k" } }
     ),
   ],
+  "trimming whitespace from values" => [
+    HTMLTidyableAttributesExample.new(
+      description: "leading and trailing spaces are removed",
+      input: { a: " b", c: "d ", e: " f ", g: { h: " i " } },
+      expected: { a: "b", c: "d", e: "f", g: { h: "i" } }
+    ),
+    HTMLTidyableAttributesExample.new(
+      description: "leading and trailing spaces are removed from nested arrays",
+      input: { a: [" b", "c "] },
+      expected: { a: %w(b c) }
+    ),
+  ],
+  "converting non-strings" => [
+    HTMLTidyableAttributesExample.new(
+      description: "non-strings are converted",
+      input: { a: 1, b: :c, d: [:e, 2] },
+      expected: { a: "1", b: "c", d: %w(e 2) }
+    ),
+  ],
 }
 
 describe "#deep_tidy_html_attributes" do
