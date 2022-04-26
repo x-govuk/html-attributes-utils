@@ -140,10 +140,10 @@ mergeable_example_groups = {
   ],
   "mergeable examples with string boolean values" => [
     HTMLMergeableAttributesExample.new(
-      description: "omg",
-      original: { a: true, b: false },
-      overrides: { c: true, d: false },
-      expected: { a: true, b: false, c: true, d: false }
+      description: "overriding booleans overwrite original strings and vice versa",
+      original: { a: true, b: false, c: "string" },
+      overrides: { b: "string", c: true, d: false },
+      expected: { a: true, b: "string", c: true, d: false }
     ),
   ],
 }
@@ -204,8 +204,8 @@ tidyable_example_groups = {
   "converting non-strings" => [
     HTMLTidyableAttributesExample.new(
       description: "non-strings are converted",
-      input: { a: 1, b: :c, d: [:e, 2] },
-      expected: { a: "1", b: "c", d: %w(e 2) }
+      input: { a: 1, b: :c, d: [:e, 2], f: 4.0, g: true, h: false },
+      expected: { a: "1", b: "c", d: %w(e 2), f: "4.0", g: "true", h: "false" }
     ),
   ],
 }
