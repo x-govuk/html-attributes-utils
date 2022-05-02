@@ -146,6 +146,14 @@ mergeable_example_groups = {
       expected: { a: true, b: "string", c: true, d: false }
     ),
   ],
+  "deep structures" => [
+    HTMLMergeableAttributesExample.new(
+      description: "when the structure is deep",
+      original: { a: { b: { c: { d: { e: "f", g: %w(h), i: { k: :l } } } } } },
+      overrides: { a: { b: { c: { d: { e: "f", g: %w(x), i: { k: :m } } } } } },
+      expected: { a: { b: { c: { d: { e: "f", g: %w(x), i: { k: :m } } } } } }
+    ),
+  ],
 }
 
 describe "#deep_merge_html_attributes" do
