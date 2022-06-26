@@ -124,6 +124,17 @@ mergeable_example_groups = {
       expected: { a: 1, b: %w(v w x y z) }
     ),
   ],
+  "deeply mergeable examples with string lists and arrays" => [
+    HTMLMergeableAttributesExample.new(
+      {
+        description: "deeply nested mergeable attributes are merged but unmergeable ones are not",
+        mergeable_attributes: [%i(a b)],
+        original: { a: { b: "c", e: "f" } },
+        overrides: { a: { b: "d", e: "g" } },
+        expected: { a: { b: %w(c d), e: "g" } },
+      }
+    ),
+  ],
   "unmergeable examples with string lists and arrays" => [
     HTMLMergeableAttributesExample.new(
       description: "overriding values overwrite original values",

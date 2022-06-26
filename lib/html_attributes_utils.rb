@@ -32,7 +32,7 @@ module HTMLAttributesUtils
         merged[key] = combine_values(
           value,
           overrides[key],
-          parents: parents << key,
+          parents: [*parents, *key],
           mergeable_attributes: mergeable_attributes
         )
 
