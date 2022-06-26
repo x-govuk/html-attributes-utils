@@ -2,7 +2,7 @@ $LOAD_PATH.push File.expand_path('lib', __dir__)
 
 Gem::Specification.new do |s|
   s.name        = "html-attributes-utils"
-  s.version     = "0.9.1"
+  s.version     = "0.9.2"
   s.authors     = ["Peter Yates"]
   s.email       = ["peter.yates@graphia.co.uk"]
   s.homepage    = "https://github.com/DFE-Digital/html-attributes-utils"
