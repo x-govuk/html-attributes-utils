@@ -224,7 +224,7 @@ tidyable_example_groups = {
     HTMLTidyableAttributesExample.new(
       description: "non-strings are converted",
       input: { a: 1, b: :c, d: [:e, 2], f: 4.0, g: true, h: false },
-      expected: { a: "1", b: "c", d: %w(e 2), f: "4.0", g: "true", h: "false" }
+      expected: { a: "1", b: "c", d: %w(e 2), f: "4.0", g: true, h: false }
     ),
   ],
 }

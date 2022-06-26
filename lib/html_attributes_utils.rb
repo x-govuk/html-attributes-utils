@@ -71,9 +71,7 @@ module HTMLAttributesUtils
     #   => { class: "blue" }
     #
     def deep_tidy_html_attributes
-      each_with_object({}) do |(key, value), tidy|
-        (tidy[key] = tidy_value(value)) unless skippable_value?(value)
-      end
+      each_with_object({}) { |(k, v), tidied| (tidied[k] = tidy_value(v)) unless v.nil? }.compact
     end
 
   private
@@ -83,23 +81,12 @@ module HTMLAttributesUtils
       when Hash
         value.deep_tidy_html_attributes.presence
       when Array
-        value.reject(&:blank?).map(&:to_s).map(&:strip).presence
+        (value.empty?) ? nil : value.map { |v| tidy_value(v) }.compact
+      when TrueClass, FalseClass
+        value
       else
         value.to_s.strip.presence
       end
-    end
-
-    # Identiy attribute values we don't care about.
-    #
-    # We can't check for this using Rails' `#presence` because we want `false` to be
-    # included so some HTML attributes that default to on can be disabled, like
-    # `autocomplete: false`
-    #
-    # FIXME: there is probably a nicer way of doing this...
-    def skippable_value?(value)
-      return false if [true, false].include?(value)
-
-      value.blank?
     end
 
     def combine_values(value, override, **kwargs)

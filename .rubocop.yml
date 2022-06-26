@@ -26,6 +26,12 @@ Style/TrailingCommaInHashLiteral:
 Style/FrozenStringLiteralComment:
   EnforcedStyle: never
 
+Style/TernaryParentheses:
+  Enabled: false
+
+Style/RedundantParentheses:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 
