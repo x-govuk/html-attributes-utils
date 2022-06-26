@@ -42,8 +42,9 @@ module HTMLAttributesUtils
       return custom unless custom.is_a?(Hash)
 
       overrides = custom.deep_symbolize_keys
+      originals = deep_symbolize_keys
 
-      deep_symbolize_keys.each_with_object(deep_symbolize_keys) { |(key, value), merged|
+      originals.each_with_object(originals) { |(key, value), merged|
         next unless overrides.key?(key)
 
         merged[key] = combine_values(
