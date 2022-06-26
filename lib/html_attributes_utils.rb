@@ -1,6 +1,23 @@
 require "active_support/core_ext/hash/keys"
 
 module HTMLAttributesUtils
+  # DEFAULT_MERGEABLE_ATTRIBUTES is a list of HTML attributes where the value
+  # contain multiple elements separated by spaces. We use it to target values
+  # to split so the arrays can be cleanly merged.
+  #
+  # They are stored as nested arrays so when we're walking multiple
+  # levels on the deep merge the structure can be identified. This means
+  # the library works with the Rails-preferred format of
+  # `aria: { describedby: "xyz" }` rather than `aria-describdby: `xyz`
+  DEFAULT_MERGEABLE_ATTRIBUTES = [
+    %i(class),
+    %i(aria controls),
+    %i(aria describedby),
+    %i(aria flowto),
+    %i(aria labelledby),
+    %i(aria owns),
+  ].freeze
+
   refine Hash do
     # Merge the incoming hash into the current one in a way that suits
     # HTML attributes.
@@ -21,7 +38,7 @@ module HTMLAttributesUtils
     #
     #   => { class: "blue", data: { size: "medium", controller: "reply" } }
     #
-    def deep_merge_html_attributes(custom, parents = [], mergeable_attributes: default_mergeable_attributes)
+    def deep_merge_html_attributes(custom, parents = [], mergeable_attributes: DEFAULT_MERGEABLE_ATTRIBUTES)
       return custom unless custom.is_a?(Hash)
 
       overrides = custom.deep_symbolize_keys
@@ -114,25 +131,6 @@ module HTMLAttributesUtils
       return value.split if value.is_a?(String) && mergeable_attributes.include?(parents)
 
       value
-    end
-
-    # Returns a list of HTML attributes where the value contain multiple
-    # elements separated by spaces. We use it to target values to split
-    # so the arrays can be cleanly merged.
-    #
-    # They are stored as nested arrays so when we're walking multiple
-    # levels on the deep merge the structure can be identified. This means
-    # the library works with the Rails-preferred format of
-    # `aria: { describedby: "xyz" }` rather than `aria-describdby: `xyz`
-    def default_mergeable_attributes
-      [
-        %i(class),
-        %i(aria controls),
-        %i(aria describedby),
-        %i(aria flowto),
-        %i(aria labelledby),
-        %i(aria owns),
-      ]
     end
   end
 end
