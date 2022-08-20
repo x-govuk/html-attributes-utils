@@ -16,6 +16,7 @@ module HTMLAttributesUtils
     %i(aria flowto),
     %i(aria labelledby),
     %i(aria owns),
+    %i(rel),
   ].freeze
 
   refine Hash do
