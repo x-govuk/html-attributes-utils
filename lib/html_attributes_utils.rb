@@ -48,12 +48,7 @@ module HTMLAttributesUtils
       originals.each_with_object(originals) { |(key, value), merged|
         next unless overrides.key?(key)
 
-        merged[key] = combine_values(
-          value,
-          overrides[key],
-          parents: [*parents, *key],
-          mergeable_attributes: mergeable_attributes
-        )
+        merged[key] = process_pair(key, value, parents: parents, overrides: overrides, mergeable_attributes: mergeable_attributes)
 
         overrides.delete(key)
       }.merge(overrides)
@@ -77,17 +72,38 @@ module HTMLAttributesUtils
 
   private
 
+    def process_pair(key, value, parents:, overrides:, mergeable_attributes:)
+      combine_values(
+        value,
+        overrides[key],
+        parents: [*parents, *key],
+        mergeable_attributes: mergeable_attributes
+      )
+    end
+
     def tidy_value(value)
       case value
-      when Hash
-        value.deep_tidy_html_attributes.presence
-      when Array
-        (value.empty?) ? nil : value.map { |v| tidy_value(v) }.compact
-      when TrueClass, FalseClass
-        value
-      else
-        value.to_s.strip.presence
+      when TrueClass, FalseClass then value
+      when Hash                  then tidy_hash(value)
+      when Array                 then tidy_array(value)
+      else                            tidy_remaining(value)
       end
+    end
+
+    def tidy_hash(hash)
+      return nil if hash.empty?
+
+      hash.deep_tidy_html_attributes
+    end
+
+    def tidy_array(array)
+      return nil if array.empty?
+
+      array.map { |v| tidy_value(v) }.compact
+    end
+
+    def tidy_remaining(value)
+      value.to_s.strip.presence
     end
 
     def combine_values(value, override, **kwargs)
