@@ -133,9 +133,7 @@ module HTMLAttributesUtils
     end
 
     def split_attribute_list(value, parents:, mergeable_attributes:)
-      return value.split if value.is_a?(String) && mergeable_attributes.include?(parents)
-
-      value
+      mergeable_attributes.include?(parents) ? try_split(value) : value
     end
   end
 end
