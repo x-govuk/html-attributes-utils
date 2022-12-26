@@ -1,6 +1,6 @@
 # HTML Attributes Utilities
 
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/dfe-digital/html-attributes-utils/Tests/main)
+[![Tests](https://github.com/DFE-Digital/html-attributes-utils/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/DFE-Digital/html-attributes-utils/actions/workflows/tests.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/da15b0accce3baf10c34/maintainability)](https://codeclimate.com/github/DFE-Digital/html-attributes-utils/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/da15b0accce3baf10c34/test_coverage)](https://codeclimate.com/github/DFE-Digital/html-attributes-utils/test_coverage)
 ![GitHub](https://img.shields.io/github/license/dfe-digital/html-attributes-utils)
