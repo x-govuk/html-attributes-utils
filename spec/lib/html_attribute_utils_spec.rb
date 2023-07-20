@@ -247,7 +247,7 @@ describe "DEFAULT_MERGEABLE_ATTRIBUTES" do
   subject { HTMLAttributesUtils::DEFAULT_MERGEABLE_ATTRIBUTES }
 
   let(:expected) do
-    [%i(class), %i(aria controls), %i(aria describedby), %i(aria flowto), %i(aria labelledby), %i(aria owns), %i(rel)]
+    [%i(class), %i(aria controls), %i(aria describedby), %i(aria flowto), %i(aria labelledby), %i(aria owns), %i(data aria controls), %i(rel)]
   end
 
   it { is_expected.to match_array(expected) }

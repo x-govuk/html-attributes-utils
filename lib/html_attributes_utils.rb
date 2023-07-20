@@ -8,13 +8,14 @@ module HTMLAttributesUtils
   # They are stored as nested arrays so when we're walking multiple
   # levels on the deep merge the structure can be identified. This means
   # the library works with the Rails-preferred format of
-  # `aria: { describedby: "xyz" }` rather than `aria-describdby: `xyz`
+  # `aria: { describedby: "xyz" }` rather than `"aria-describdby" => "xyz"`
   DEFAULT_MERGEABLE_ATTRIBUTES = [
     %i(class),
     %i(aria controls),
     %i(aria describedby),
     %i(aria flowto),
     %i(aria labelledby),
+    %i(data aria controls),
     %i(aria owns),
     %i(rel),
   ].freeze
